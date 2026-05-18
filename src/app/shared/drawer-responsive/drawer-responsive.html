@@ -1,0 +1,14 @@
+<nz-drawer
+  [nzVisible]="visible()"
+  [nzTitle]="title()"
+  [nzWidth]="width()"
+  [nzPlacement]="placement()"
+  [nzClosable]="false"
+  (nzOnClose)="onClose()"
+>
+  <ng-container *nzDrawerContent>
+    <div class="h-full flex flex-col">
+      <ng-content></ng-content>
+    </div>
+  </ng-container>
+</nz-drawer>

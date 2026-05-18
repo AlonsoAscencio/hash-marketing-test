@@ -1,0 +1,85 @@
+@charset "UTF-8";
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Light Theme */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #eef2ff;
+  --bg-card: #ffffff;
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  /* Dark Theme */
+  --bg-dark-primary: #020617;
+  --bg-dark-secondary: #0f172a;
+  --bg-dark-card: #1e293b;
+
+  --text-dark-primary: #f8fafc;
+  --text-dark-secondary: #94a3b8;
+
+  /* Basics */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border-color: #e2e8f0;
+  --chart-blue: #3b82f6;
+  --chart-green: #10b981;
+  --chart-orange: #f59e0b;
+  --border-dark-color: #334155;
+}
+
+@theme static{
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-dark-bg-primary: var(--bg-dark-primary);
+  --color-dark-bg-secondary: var(--bg-dark-secondary);
+  --color-dark-bg-card: var(--bg-dark-card);
+  --color-dark-text-primary: var(--text-dark-primary);
+  --color-dark-text-secondary: var(--text-dark-secondary);
+
+  --color-primary: var(--primary);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-border: var(--border-color);
+}
+
+@layer components {
+  .glass {
+    backdrop-filter: blur(16px);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@layer base {
+  html,
+  body {
+    background: var(--bg-primary);
+
+    color: var(--text-primary);
+
+    min-height: 100vh;
+  }
+
+  body {
+    margin: 0;
+  }
+  * {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
+  }
+}

@@ -1,0 +1,80 @@
+<div
+  class="glass flex flex-col gap-5 min-h-70 w-full min-w-0 relative rounded-3xl p-5 cursor-pointer transition-all hover:scale-[1.02] hover:shadow-xl bg-bg-primary dark:bg-dark-bg-primary"
+  (click)="openDetails()"
+>
+  <div
+    class="absolute w-full h-full top-0 left-0 flex items-center justify-center pointer-events-none"
+  >
+    <ng-icon [name]="getIcon(campaign().platform)" class="text-9xl text-primary/20! mb-4" />
+  </div>
+  <div class="flex justify-between items-start">
+    <div>
+      <h3 class="font-bold text-lg text-text-primary! dark:text-dark-text-primary!">
+        {{ campaign().name }}
+      </h3>
+
+      <p class="text-sm text-text-secondary">
+        {{ campaign().client }}
+      </p>
+    </div>
+
+    <span
+      class="px-3 py-1 rounded-full text-xs font-semibold"
+      [class]="getStatusColor(campaign().status)"
+    >
+      {{ campaign().status }}
+    </span>
+  </div>
+
+  <div class="mt-5">
+    <div class="flex justify-between">
+      <span nz-tooltip [nzTooltipTitle]="hPlatform()" class="text-text-secondary cursor-help">
+        Plataforma
+      </span>
+
+      <span>
+        {{ campaign().platform }}
+      </span>
+    </div>
+
+    <div class="flex justify-between mt-2">
+      <span nz-tooltip [nzTooltipTitle]="hPlace()" class="text-text-secondary cursor-help">
+        Estado
+      </span>
+
+      <span>
+        {{ campaign().place }}
+      </span>
+    </div>
+
+    <div class="flex justify-between mt-2">
+      <span nz-tooltip [nzTooltipTitle]="hCTR()" class="text-text-secondary cursor-help">
+        CTR
+      </span>
+
+      <span> {{ campaign().metrics.ctr }}% </span>
+    </div>
+
+    <div class="flex justify-between mt-2">
+      <span nz-tooltip [nzTooltipTitle]="hRoas()" class="text-text-secondary cursor-help">
+        ROAS
+      </span>
+
+      <span class="font-bold"> {{ campaign().metrics.roas }}x </span>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <nz-progress [nzPercent]="(campaign().spent / campaign().budget) * 100" [nzShowInfo]="false" />
+
+    <div class="flex justify-between text-xs mt-2 text-text-secondary">
+      <span nz-tooltip [nzTooltipTitle]="hSpent()" class="cursor-help">
+        {{ campaign().spent | currency }}
+      </span>
+
+      <span nz-tooltip [nzTooltipTitle]="hBudget()" class="cursor-help">
+        {{ campaign().budget | currency }}
+      </span>
+    </div>
+  </div>
+</div>

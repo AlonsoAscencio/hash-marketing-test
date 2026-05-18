@@ -1,0 +1,168 @@
+<div class="space-y-6 text-text-primary! dark:text-dark-text-primary!">
+  <section class="flex flex-col gap-3">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
+          {{ campaign.name }}
+        </h2>
+
+        <p class="text-text-secondary">{{ campaign.client }} · {{ campaign.platform }}</p>
+      </div>
+
+      <nz-tag [nzColor]="getStatusColor(campaign.status)">
+        {{ getStatusLabel(campaign.status) }}
+      </nz-tag>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+      <p
+        nz-tooltip
+        [nzTooltipTitle]="descriptions.impressions"
+        class="text-sm text-text-secondary flex items-center gap-1 cursor-help"
+      >
+        Impresiones
+      </p>
+      <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
+        {{ campaign.metrics.impressions | number }}
+      </h3>
+    </div>
+
+    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+      <p
+        nz-tooltip
+        [nzTooltipTitle]="descriptions.clicks"
+        class="text-sm text-text-secondary flex items-center gap-1 cursor-help"
+      >
+        Clicks
+      </p>
+      <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
+        {{ campaign.metrics.clicks | number }}
+      </h3>
+    </div>
+
+    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+      <p
+        nz-tooltip
+        [nzTooltipTitle]="descriptions.conversions"
+        class="text-sm text-text-secondary flex items-center gap-1 cursor-help"
+      >
+        Conversiones
+      </p>
+      <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
+        {{ campaign.metrics.conversions | number }}
+      </h3>
+    </div>
+
+    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+      <p
+        nz-tooltip
+        [nzTooltipTitle]="descriptions.roas"
+        class="text-sm text-text-secondary flex items-center gap-1 cursor-help"
+      >
+        ROAS
+      </p>
+      <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
+        {{ campaign.metrics.roas }}x
+      </h3>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
+    <div class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+      <h3 class="font-bold mb-4">Métricas principales</h3>
+
+      <div class="space-y-3 text-sm ">
+        <div class="flex justify-between">
+          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.ctr">
+            CTR
+          </span>
+          <strong>{{ campaign.metrics.ctr }}%</strong>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpc">
+            CPC
+          </span>
+          <strong>{{ campaign.metrics.cpc | currency }}</strong>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpm">
+            CPM
+          </span>
+          <strong>{{ campaign.metrics.cpm | currency }}</strong>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpa">
+            CPA
+          </span>
+          <strong>{{ campaign.metrics.cpa | currency }}</strong>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.conversionRate">
+            Tasa de conversión
+          </span>
+          <strong>{{ campaign.metrics.conversionRate }}%</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass rounded-3xl p-5 flex flex-col justify-between bg-bg-primary dark:bg-dark-bg-primary">
+      <h3 class="font-bold mb-4 text-text-primary! dark:text-dark-text-primary!">Presupuesto</h3>
+
+      <nz-progress [nzPercent]="budgetUsed" [nzShowInfo]="true" />
+
+      <div class="flex justify-between text-sm text-text-secondary mt-3">
+        <span>Gastado: {{ campaign.spent | currency }}</span>
+        <span>Total: {{ campaign.budget | currency }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+    <div class="mb-4">
+      <h3 class="font-bold text-text-primary! dark:text-dark-text-primary!">
+        Conversiones por periodo
+      </h3>
+      <p class="text-sm text-text-secondary">
+        Evolución histórica de conversiones registradas en la campaña.
+      </p>
+    </div>
+
+    <div class="h-75">
+      <canvas baseChart type="line" [data]="chartData" [options]="chartOptions"></canvas>
+    </div>
+  </section>
+
+  <section class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+    <h3 class="font-bold mb-4 text-text-primary! dark:text-dark-text-primary!">
+      Detalles de segmentación
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <p class="text-text-secondary">Objetivo</p>
+        <strong>{{ campaign.objective }}</strong>
+      </div>
+
+      <div>
+        <p class="text-text-secondary">País</p>
+        <strong>{{ campaign.details.country }}</strong>
+      </div>
+
+      <div>
+        <p class="text-text-secondary">Audiencia</p>
+        <strong>{{ campaign.details.audience }}</strong>
+      </div>
+
+      <div>
+        <p class="text-text-secondary">Estrategia de puja</p>
+        <strong>{{ campaign.details.bidStrategy }}</strong>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,52 @@
+<div class="h-full flex flex-col">
+  <!-- Header -->
+
+  <div class="mb-8">
+    <h2 class="text-2xl font-black tracking-tight text-text-primary! dark:text-dark-text-primary!">
+      {{ title() }}
+    </h2>
+  </div>
+
+  <!-- Sections -->
+
+  <div class="flex flex-col gap-6">
+    @for (section of sections(); track section.title) {
+      <section>
+        <h3
+          class="text-sm uppercase text-text-secondary! dark:text-dark-text-secondary! mb-3 font-medium"
+        >
+          {{ section.title }}
+        </h3>
+
+        <div class="space-y-2">
+          @for (item of section.items; track item.label) {
+            <button
+              (click)="onItemClick(section.title, item.label)"
+              class="w-full cursor-pointer flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-bg-secondary dark:hover:bg-dark-bg-secondary transition-all"
+            >
+              <div class="flex items-center gap-3">
+                @if (item.icon) {
+                  <span>
+                    {{ item.icon }}
+                  </span>
+                }
+
+                <span class="text-text-primary dark:text-dark-text-primary">
+                  {{ item.label }}
+                </span>
+              </div>
+
+              @if (item.count) {
+                <span
+                  class="px-2 py-1 rounded-full text-xs glass bg-bg-primary dark:bg-dark-bg-primary text-text-primary! dark:text-dark-text-primary!"
+                >
+                  {{ item.count }}
+                </span>
+              }
+            </button>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</div>

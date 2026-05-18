@@ -1,0 +1,36 @@
+<div
+  class="grid min-h-screen"
+  [style.grid-template-columns]="isMobile() ? '1fr' : '280px minmax(0,1fr)'"
+>
+  @if (!isMobile()) {
+    <aside class="glass p-6 overflow-y-auto bg-bg-primary dark:bg-dark-bg-primary">
+      <app-menu [sections]="menuSections()" (filterSelected)="applyMenuFilter($event)" />
+    </aside>
+  }
+
+  <main class="p-6 space-y-6 overflow-x-hidden min-w-0 bg-bg-secondary dark:bg-dark-bg-secondary">
+    <app-header [isMobile]="isMobile()" (menuClicked)="toggleDrawer()" />
+    <app-campaign-filters
+      [search]="search()"
+      [platform]="platformFilter()"
+      [status]="statusFilter()"
+      (filtersChanged)="updateFilters($event)"
+    />
+    @if (loading()) {
+      <div class=" min-h-1/3 grid place-items-center bg-bg-secondary dark:bg-dark-bg-secondary ">
+        <nz-spin nzSize="large" />
+      </div>
+    } @else {
+      <app-campaign-list
+        [campaigns]="filteredCampaigns()"
+        (campaignSelected)="openCampaignDetails($event)"
+      />
+    }
+  </main>
+</div>
+
+@if (isMobile()) {
+  <app-drawer-responsive [visible]="drawerVisible()" (closed)="toggleDrawer()">
+    <app-menu [sections]="menuSections()" (filterSelected)="applyMenuFilter($event)" />
+  </app-drawer-responsive>
+}

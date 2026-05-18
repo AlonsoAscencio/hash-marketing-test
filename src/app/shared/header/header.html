@@ -1,0 +1,38 @@
+<header
+  class="glass rounded-3xl px-6 py-5 flex items-center justify-between bg-bg-primary! dark:bg-dark-bg-primary!"
+>
+  <div class="flex items-center gap-4">
+    @if (isMobile()) {
+      <button nz-button nzType="text" (click)="menuClicked.emit()">
+        <ng-icon class="text-text-secondary!" name="bootstrapList"></ng-icon>
+      </button>
+    }
+
+    <div>
+      <h1
+        class="text-2xl font-black tracking-tight text-text-primary! dark:text-dark-text-primary!"
+      >
+        Dashboard
+      </h1>
+      @if (!isMobile()) {
+        <p class="text-sm text-text-secondary mt-1">
+          Monitorea el rendimiento de tus anuncios en tiempo real
+        </p>
+      }
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3 px-2 py-2 rounded-full bg-bg-secondary dark:bg-dark-bg-secondary">
+    <nz-switch
+      class=""
+      [ngModel]="isDarkMode()"
+      (ngModelChange)="toggleTheme()"
+      [nzCheckedChildren]="checkedTemplate"
+      [nzUnCheckedChildren]="unCheckedTemplate"
+    />
+    <ng-template #checkedTemplate><nz-icon nzType="moon" /></ng-template>
+    <ng-template #unCheckedTemplate
+      ><span nz-icon nzType="sun" nzTheme="outline" class="text-text-secondary!"></span
+    ></ng-template>
+  </div>
+</header>

@@ -1,0 +1,70 @@
+<div
+  class="glass my-5 rounded-3xl p-5 flex flex-col lg:flex-row gap-4 bg-bg-primary dark:bg-dark-bg-primary"
+>
+  <nz-input-wrapper nzPrefixIcon="search" class="flex-1">
+    <input
+      class="bg-transparent text-text-primary! dark:text-dark-text-primary! placeholder-dark-text-secondary! dark:placeholder-dark-text-secondary!"
+      nz-input
+      placeholder="Buscar campañas..."
+      [ngModel]="search()"
+      (ngModelChange)="
+        filtersChanged.emit({
+          search: $event,
+          platform: platform(),
+          status: status(),
+        })
+      "
+    />
+  </nz-input-wrapper>
+
+  <nz-select
+  class="min-w-45 text-dark-text-secondary! dark:text-dark-text-secondary!"
+  placeholder="Plataforma"
+  [ngModel]="platform()"
+  (ngModelChange)="
+    filtersChanged.emit({
+      search: search(),
+      platform: $event,
+      status: status(),
+    })
+  "
+  nzAllowClear
+>
+    <nz-option nzValue="Google Ads" nzLabel="Google Ads" />
+
+    <nz-option nzValue="Meta Ads" nzLabel="Meta Ads" />
+
+    <nz-option nzValue="Amazon Ads" nzLabel="Amazon Ads" />
+  </nz-select>
+
+  <nz-select
+    class="min-w-45 text-dark-text-secondary! dark:text-dark-text-secondary!"
+    placeholder="Estado"
+    plac
+    [ngModel]="status()"
+    (ngModelChange)="
+      filtersChanged.emit({
+        search: search(),
+        platform: platform(),
+        status: $event,
+      })
+    "
+    nzAllowClear
+  >
+    <nz-option nzValue="Activa" nzLabel="Activa" />
+
+    <nz-option nzValue="Pausada" nzLabel="Pausada" />
+
+    <nz-option nzValue="Finalizada" nzLabel="Finalizada" />
+  </nz-select>
+
+  <button
+    nz-button
+    nzType="default"
+    class="min-w-32 rounded-2xl text-text-primary! dark:text-dark-text-primary!"
+    (click)="clearFilters()"
+  >
+    <ng-icon class="mx-2" name="bootstrapTrash3" />
+    Limpiar filtros
+  </button>
+</div>
