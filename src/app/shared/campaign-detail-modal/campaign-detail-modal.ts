@@ -8,6 +8,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { Campaign } from '../../domain/models/campaign-view';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
+import { CountUp } from "../count-up/count-up";
 
 @Component({
   selector: 'app-campaign-detail-modal',
@@ -20,7 +21,8 @@ import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
     BaseChartDirective,
     NzTooltipModule,
     DecimalPipe,
-  ],
+    CountUp
+],
   styles: `
     ::ng-deep .ant-modal-content {
       background-color: var(--color-bg-secondary) !important;

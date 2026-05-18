@@ -16,7 +16,7 @@
   </section>
 
   <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+    <div class="glass rounded-2xl p-4 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
       <p
         nz-tooltip
         [nzTooltipTitle]="descriptions.impressions"
@@ -25,11 +25,11 @@
         Impresiones
       </p>
       <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
-        {{ campaign.metrics.impressions | number }}
+        <app-count-up [value]="campaign.metrics.impressions" />
       </h3>
     </div>
 
-    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+    <div class="glass rounded-2xl p-4 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
       <p
         nz-tooltip
         [nzTooltipTitle]="descriptions.clicks"
@@ -38,11 +38,11 @@
         Clicks
       </p>
       <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
-        {{ campaign.metrics.clicks | number }}
+        <app-count-up [value]="campaign.metrics.clicks" />
       </h3>
     </div>
 
-    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+    <div class="glass rounded-2xl p-4 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
       <p
         nz-tooltip
         [nzTooltipTitle]="descriptions.conversions"
@@ -51,11 +51,11 @@
         Conversiones
       </p>
       <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
-        {{ campaign.metrics.conversions | number }}
+        <app-count-up [value]="campaign.metrics.conversions" />
       </h3>
     </div>
 
-    <div class="glass rounded-2xl p-4 bg-bg-primary dark:bg-dark-bg-primary">
+    <div class="glass rounded-2xl p-4 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
       <p
         nz-tooltip
         [nzTooltipTitle]="descriptions.roas"
@@ -64,54 +64,76 @@
         ROAS
       </p>
       <h3 class="text-2xl font-black text-text-primary! dark:text-dark-text-primary!">
-        {{ campaign.metrics.roas }}x
+        <app-count-up [value]="campaign.metrics.roas" [decimals]="2" />
       </h3>
     </div>
   </section>
 
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
-    <div class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="glass rounded-3xl p-5 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
       <h3 class="font-bold mb-4">Métricas principales</h3>
 
-      <div class="space-y-3 text-sm ">
-        <div class="flex justify-between">
-          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.ctr">
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between ">
+          <span
+            class="text-text-secondary cursor-help"
+            nz-tooltip
+            [nzTooltipTitle]="descriptions.ctr"
+          >
             CTR
           </span>
-          <strong>{{ campaign.metrics.ctr }}%</strong>
+          <strong><app-count-up [value]="campaign.metrics.ctr" [decimals]="2" suffix="%" /></strong>
         </div>
 
         <div class="flex justify-between">
-          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpc">
+          <span
+            class="text-text-secondary cursor-help"
+            nz-tooltip
+            [nzTooltipTitle]="descriptions.cpc"
+          >
             CPC
           </span>
-          <strong>{{ campaign.metrics.cpc | currency }}</strong>
+          <strong><app-count-up [value]="campaign.metrics.cpc" [decimals]="2" prefix="$" /></strong>
         </div>
 
         <div class="flex justify-between">
-          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpm">
+          <span
+            class="text-text-secondary cursor-help"
+            nz-tooltip
+            [nzTooltipTitle]="descriptions.cpm"
+          >
             CPM
           </span>
-          <strong>{{ campaign.metrics.cpm | currency }}</strong>
+          <strong><app-count-up [value]="campaign.metrics.cpm" [decimals]="2" prefix="$" /></strong>
         </div>
 
         <div class="flex justify-between">
-          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.cpa">
+          <span
+            class="text-text-secondary cursor-help"
+            nz-tooltip
+            [nzTooltipTitle]="descriptions.cpa"
+          >
             CPA
           </span>
-          <strong>{{ campaign.metrics.cpa | currency }}</strong>
+          <strong><app-count-up [value]="campaign.metrics.cpa" [decimals]="2" prefix="$" /></strong>
         </div>
 
         <div class="flex justify-between">
-          <span class="text-text-secondary cursor-help" nz-tooltip [nzTooltipTitle]="descriptions.conversionRate">
+          <span
+            class="text-text-secondary cursor-help"
+            nz-tooltip
+            [nzTooltipTitle]="descriptions.conversionRate"
+          >
             Tasa de conversión
           </span>
-          <strong>{{ campaign.metrics.conversionRate }}%</strong>
+          <strong><app-count-up [value]="campaign.metrics.conversionRate" [decimals]="2" suffix="%" /></strong>
         </div>
       </div>
     </div>
 
-    <div class="glass rounded-3xl p-5 flex flex-col justify-between bg-bg-primary dark:bg-dark-bg-primary">
+    <div
+      class="glass rounded-3xl p-5 flex flex-col justify-between bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform"
+    >
       <h3 class="font-bold mb-4 text-text-primary! dark:text-dark-text-primary!">Presupuesto</h3>
 
       <nz-progress [nzPercent]="budgetUsed" [nzShowInfo]="true" />
@@ -123,7 +145,7 @@
     </div>
   </section>
 
-  <section class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+  <section class="glass rounded-3xl p-5 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
     <div class="mb-4">
       <h3 class="font-bold text-text-primary! dark:text-dark-text-primary!">
         Conversiones por periodo
@@ -138,7 +160,7 @@
     </div>
   </section>
 
-  <section class="glass rounded-3xl p-5 bg-bg-primary dark:bg-dark-bg-primary">
+  <section class="glass rounded-3xl p-5 bg-bg-primary/50 dark:bg-dark-bg-primary hover:scale-105 transition-transform">
     <h3 class="font-bold mb-4 text-text-primary! dark:text-dark-text-primary!">
       Detalles de segmentación
     </h3>
