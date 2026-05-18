@@ -1,64 +1,87 @@
-<<<<<<< HEAD
-# HashDashboard
+# Hash Marketing Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+Dashboard desarrollado en Angular para visualizar campañas publicitarias de diferentes plataformas como Google Ads, Meta Ads y Amazon Ads.
 
-## Development server
+## Tecnologías utilizadas
 
-To start a local development server, run:
+- Angular 21
+- TypeScript
+- Tailwind CSS
+- NG-ZORRO
+- Chart.js / ng2-charts
+- Bun
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Instalación
 
 ```bash
-ng generate component component-name
+bun install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Estructura del proyecto
 
-```bash
-ng generate --help
-```
+El proyecto está organizado separando responsabilidades para que sea más fácil de mantener y escalar.
 
-## Building
+* `pages/`: contiene las vistas principales de la aplicación.
+* `shared/components/`: contiene componentes reutilizables como header, menú, drawer, cards, filtros, listado de campañas y modal de detalle.
+* `domain/models/`: contiene las interfaces y tipos principales del dominio, como `Campaign`, `Metrics`, `Details` e `History`.
+* `config/constants/`: contiene el mock local de campañas.
+* `states/`: contiene lógica de estado global, como el manejo del tema claro/oscuro.
 
-To build the project run:
+Decidí estructurarlo así para mantener separada la lógica de negocio, la presentación visual y los datos. También utilicé componentes standalone, signals y computed properties para manejar el estado de forma más simple y reactiva.
 
-```bash
-ng build
-```
+## Métricas consideradas clave
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Para el dashboard consideré como métricas principales:
 
-## Running unit tests
+* Impresiones
+* Clicks
+* CTR
+* Conversiones
+* ROAS
+* CPC
+* CPM
+* CPA
+* Tasa de conversión
+* Presupuesto gastado
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Visualmente prioricé las métricas que ayudan a entender más rápido el rendimiento de una campaña:
 
-```bash
-ng test
-```
+1. **ROAS** , porque indica la rentabilidad de la inversión.
+2. **Conversiones** , porque muestra los resultados generados.
+3. **CTR** , porque ayuda a medir qué tan atractivo es el anuncio.
+4. **Presupuesto gastado** , porque permite entender cuánto se ha consumido del presupuesto.
+5. **Impresiones y clicks** , porque dan contexto sobre alcance e interacción.
 
-## Running end-to-end tests
+Para la jerarquía visual usé cards, números grandes, badges de estado, tooltips explicativos y una gráfica histórica de conversiones para que el usuario pueda entender la salud de la campaña de forma rápida.
 
-For end-to-end (e2e) testing, run:
+## Integración con APIs reales
 
-```bash
-ng e2e
-```
+Para conectarme a APIs reales usaría servicios separados por plataforma, lo ideal seria conectarme a traves del backend para seguridad de las credenciales, para realizar la conexion con las APIs se requiere de cuentas activas, credenciales, permisos, y establecer reglas de consulta para mantener datos actualizados cada cierto tiempo.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Desventajas:
 
-## Additional Resources
+* Limites en las peticiones
+* Cambios de versiones en las API
+* Métricas con nombres distintos
+* Datos incompletos por permisos insuficientes
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# hashMarketingTest
-Prueba técnica creada en angular 21
->>>>>>> a5be0f52c6e9340365a67fd052ddea9d1e8df876
+## Manejo de diferencias entre plataformas
+
+Para manejar las diferencias que existen en las plataformas lo ideal seria general un modelo generico que abarque los datos mas importantes, y para manejar esos datos utilizaria un mapper, de esta forma independientemente de la plataforma que se use y lla forma en que responde la api se podria manejar todos los casos.
+
+## Decisiones de diseño
+
+Busqué que la interfaz no fuera solo una tabla, sino una vista más visual y moderna. Por eso agregué:
+
+* modo claro y oscuro,
+* diseño responsive,
+* drawer en mobile,
+* sidebar en desktop,
+* filtros por plataforma y estado,
+* búsqueda por coincidencias,
+* modal con detalle de campaña,
+* gráfica de conversiones,
+* tooltips explicativos,
+* y estados de carga/vacío.
+
+La intención fue construir una vista útil para analizar campañas rápidamente y no solo mostrar datos en pantalla.
